@@ -35,6 +35,15 @@ Load these when you need detailed implementation guidance:
 - Storage: file bytes in filesystem/GCS, never in SQLite. Metadata in SQLite.
 - Credentials: ADC / env vars only. Never hardcoded. Never committed.
 
+## start.sh — Every Project Gets One
+When creating a new FastAPI app, always generate a `start.sh` at the project root with:
+- **argparse-style flags**: `--port`, `--host`, `--dev` (dev mode), `--no-reload`, etc.
+- **Auto port finding**: if the requested port is busy, scan upward until a free one is found
+- **Hot reload on by default**: uses `uvicorn --reload` in dev mode
+- **Venv activation**: auto-activates `./venv` if it exists
+- **Clear startup banner**: prints the URL, mode, and active flags so the user knows what's running
+The user runs `bash start.sh` (or `./start.sh`) and the app just works. See `start.sh.template` for the reference implementation.
+
 ## Git Workflow
 - Commit after each logical unit of work
 - Run tests before committing if tests exist

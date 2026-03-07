@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# ─────────────────────────────────────────────────────────────
+# start.sh — One-command launcher for this FastAPI project
+#
+# Usage:
+#   bash start.sh                  # defaults: dev mode, port 8000, hot reload
+#   bash start.sh --port 8080      # specific port
+#   bash start.sh --prod           # production mode (no reload, no dev bypass)
+#   bash start.sh --no-reload      # dev mode but no hot reload
+#   bash start.sh --host 0.0.0.0   # bind to all interfaces
+# ─────────────────────────────────────────────────────────────
+
+set -euo pipefail
+
+# ── Defaults ──────────────────────────────────────────────────
+PORT=8000
+HOST="127.0.0.1"
+RELOAD=true
+DEV_MODE=true
+# TODO: Update this to your actual app module path
+APP_MODULE="app.main:app"
+
+# ── Parse arguments ───────────────────────────────────────────
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --port)      PORT="$2";      shift 2 ;;
+        --host)      HOST="$2";      shift 2 ;;
+        --prod)      DEV_MODE=false; RELOAD=false; shift ;;
+        --no-reload) RELOAD=false;   shift ;;
+        --dev)       DEV_MODE=true;  RELOAD=true;  shift ;;
+        --help|-h)
+            echo "Usage: bash start.sh [OPTIONS]"
+            echo ""
+            echo "Options:"
+            echo "  --port PORT    Port to listen on (default: 8000, auto-finds next free)"
+            echo "  --host HOST    Host to bind to (default: 127.0.0.1)"
+            echo "  --dev          Dev mode with hot reload (default)"
+            echo "  --prod         Production mode (no reload, no dev bypass)"
+            echo "  --no-reload    Dev mode but disable hot reload"
+            echo "  -h, --help     Show this help"
+            exit 0
+            ;;
+        *) echo "Unknown option: $1"; exit 1 ;;
+    esac
+done
+
+# ── Activate venv if present ─────────────────────────────────
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -d "$SCRIPT_DIR/venv" ]]; then
+    source "$SCRIPT_DIR/venv/bin/activate"
+elif [[ -d "$SCRIPT_DIR/.venv" ]]; then
+    source "$SCRIPT_DIR/.venv/bin/activate"
+fi
+
+# ── Find a free port ─────────────────────────────────────────
+find_free_port() {
+    local port=$1
+    local max_tries=20
+    for (( i=0; i<max_tries; i++ )); do
+        if ! lsof -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; then
+            echo "$port"
+            return
+        fi
+        port=$((port + 1))
+    done
+    echo "ERROR: No free port found in range $1-$port" >&2
+    exit 1
+}
+
+PORT=$(find_free_port "$PORT")
+
+# ── Set environment variables ────────────────────────────────
+if [[ "$DEV_MODE" == "true" ]]; then
+    # TODO: Update env var prefix to match your project
+    export DEV_MODE=true
+fi
+
+# ── Build uvicorn command ────────────────────────────────────
+CMD=(uvicorn "$APP_MODULE" --host "$HOST" --port "$PORT")
+
+if [[ "$RELOAD" == "true" ]]; then
+    CMD+=(--reload)
+fi
+
+# ── Startup banner ───────────────────────────────────────────
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  Starting server"
+echo "  URL:     http://${HOST}:${PORT}"
+echo "  Mode:    $(if [[ "$DEV_MODE" == "true" ]]; then echo "DEV"; else echo "PRODUCTION"; fi)"
+echo "  Reload:  $(if [[ "$RELOAD" == "true" ]]; then echo "ON"; else echo "OFF"; fi)"
+echo "  Module:  ${APP_MODULE}"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# ── Launch ───────────────────────────────────────────────────
+exec "${CMD[@]}"

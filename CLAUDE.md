@@ -6,7 +6,7 @@ SQLite + SQLAlchemy 2.0 | Firebase Auth (CDN JS SDK + Python Admin SDK)
 Ollama (fast/cheap LLM) | Vertex AI Gemini 2.5 (hard problems) | GCP northamerica-northeast1
 
 ## Golden Rules — Violating These Is Always Wrong
-1. **Zero npm. Zero build step.** All frontend libs via CDN `<script>` tags. No webpack, no vite, no node_modules.
+1. **Zero npm. Zero build step** (server-rendered stack). All frontend libs via CDN `<script>` tags. No webpack, no vite, no node_modules. **Exception**: client-only SPA projects use Next.js or Vite — load `/core_skills:client-spa-conventions` for those.
 2. **All GCP resources in `northamerica-northeast1` (Montreal).** PIPEDA/PHIPA data residency. Non-negotiable.
 3. **Ollama for fast/cheap. Vertex AI for hard problems.** Route by capability, not sensitivity — both stay in Canada.
 4. **No arbitrary Tailwind values** (`w-[347px]`). CDN build only — use the default palette.
@@ -27,6 +27,7 @@ Load these when you need detailed implementation guidance:
 - `/core_skills:agentic-loop` — AI agent iteration pattern (retrieve → score → gap-detect → synthesize)
 - `/core_skills:firebase-auth` — Firebase auth end-to-end (JS SDK, Admin SDK, session cookies, RBAC, dev mode)
 - `/core_skills:ui-safety-nets` — HTMX/Alpine UI safety patterns (modals, collapse, orphan watchdog)
+- `/core_skills:client-spa-conventions` — Next.js / Vite conventions for client-only apps
 - `/review:pr-review` — PR review checklist and process
 
 ## File Conventions

@@ -24,3 +24,12 @@ venv/
 
 # Claude Code local
 .claude/.DS_Store
+
+# Working notes (not part of the public site)
+idea_ROOT.md
+dryanbio.md
+greenlep-references.md
+CLAUDE.md
+start.sh.template
+xstart_claude_code_instructions.md
+docs/

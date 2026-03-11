@@ -40,15 +40,27 @@
     <div class="max-w-4xl mx-auto px-3 md:px-4 py-2 md:py-3 flex flex-wrap items-center justify-between gap-1 md:gap-2">
       <a href="#top" class="text-brand-700 font-bold text-base md:text-lg tracking-tight">GreenLEP GTA</a>
       <div class="flex flex-wrap gap-x-3 md:gap-x-5 gap-y-0.5 text-xs md:text-sm text-gray-500">
-        <a href="#about" class="nav-link hover:text-brand-700 transition-colors">About</a>
-        <a href="#candidates" class="nav-link hover:text-brand-700 transition-colors">Candidates</a>
-        <a href="#advantages" class="nav-link hover:text-brand-700 transition-colors">Advantages</a>
-        <a href="#expect" class="nav-link hover:text-brand-700 transition-colors">What to Expect</a>
-        <a href="#evidence" class="nav-link hover:text-brand-700 transition-colors">Evidence</a>
-        <a href="#refer" class="nav-link hover:text-brand-700 transition-colors">Refer</a>
+        <!-- Section anchors (current single-page mode) -->
+        <a href="#about" class="nav-link hover:text-brand-700 transition-colors section-nav">About</a>
+        <a href="#candidates" class="nav-link hover:text-brand-700 transition-colors section-nav">Candidates</a>
+        <a href="#advantages" class="nav-link hover:text-brand-700 transition-colors section-nav">Advantages</a>
+        <a href="#expect" class="nav-link hover:text-brand-700 transition-colors section-nav">What to Expect</a>
+        <a href="#evidence" class="nav-link hover:text-brand-700 transition-colors section-nav">Evidence</a>
+        <a href="#refer" class="nav-link hover:text-brand-700 transition-colors section-nav">Refer</a>
+        <!-- Multi-page nav (dev preview of final site) -->
+        <a href="index.html" class="nav-link text-brand-700 font-medium hidden page-nav">Home</a>
+        <a href="about.html" class="nav-link hover:text-brand-700 transition-colors hidden page-nav">About</a>
+        <a href="urology.html" class="nav-link hover:text-brand-700 transition-colors hidden page-nav">Practice</a>
+        <a href="referrals.html" class="nav-link hover:text-brand-700 transition-colors hidden page-nav">Refer</a>
       </div>
     </div>
   </nav>
+  <script>
+    if (new URLSearchParams(window.location.search).has('dev')) {
+      document.querySelectorAll('.section-nav').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.page-nav').forEach(el => el.classList.remove('hidden'));
+    }
+  </script>
 
   <!-- Hero -->
   <header id="top" class="bg-brand-800 text-white relative overflow-hidden">
@@ -164,7 +176,7 @@
           <h3 class="text-base md:text-lg font-bold text-gray-800" style="font-family: system-ui, -apple-system, sans-serif;">A Note About Bladder Function</h3>
         </div>
         <div class="space-y-2 md:space-y-3 text-gray-700 text-sm md:text-base leading-relaxed">
-          <p>Surgery removes the blockage. What it cannot do is repair a bladder that has lost its ability to squeeze. When obstruction has been present for a long time, the bladder muscle can weaken. In those cases, no operation &mdash; regardless of technique &mdash; will fully restore a strong stream.</p>
+          <p>Surgery removes the blockage. What it cannot do is repair a bladder that has lost its ability to squeeze. When obstruction has been present for a long time, the bladder muscle can weaken to the point where it no longer has enough tone to empty itself. In those cases, even reducing the prostate size may not help you fully empty &mdash; no operation, regardless of technique, will fully restore a strong stream.</p>
           <p>This is assessed during the consultation. When the bladder is still working well, the results of surgery can be dramatic. When it isn&rsquo;t, that conversation happens before any decision is made.</p>
           <p class="font-medium text-gray-800">This is not a reason to delay seeing a specialist. It is a reason to be seen sooner, before irreversible changes occur.</p>
         </div>
@@ -220,7 +232,7 @@
             <h3 class="text-base md:text-lg font-bold text-gray-800">Urinary Control Preserved</h3>
           </div>
           <div class="text-gray-700 text-sm leading-relaxed space-y-2">
-            <p>Because the laser works along the prostate&rsquo;s natural tissue plane, it avoids disturbing the muscle that controls urination. Long-term leakage is rare.</p>
+            <p>Because the laser works along the prostate&rsquo;s natural tissue plane, it avoids disturbing the muscle that controls urination. The risk of <strong>stress incontinence</strong> &mdash; leakage with coughing, sneezing, or physical movement &mdash; is <strong>less than 1%</strong>.</p>
             <p class="text-gray-500">Some temporary urgency is normal in the first weeks as the bladder adjusts. This almost always settles.</p>
           </div>
         </div>
@@ -246,8 +258,8 @@
             <circle cx="12" cy="12" r="9"/>
             <path d="M12 8v4m0 4h.01"/>
           </svg>
-          <div class="text-sm text-gray-700 leading-relaxed">
-            <p><strong class="text-gray-800">A note about sexual function.</strong> Erections and sensation are not affected. However, <strong>retrograde ejaculation</strong> &mdash; where semen passes backward into the bladder instead of forward &mdash; is expected after GreenLEP, as it is after virtually all prostate surgeries that open the bladder neck. This means the procedure is not compatible with future fertility. This is discussed in detail during the consultation.</p>
+          <div class="text-sm text-gray-700 leading-relaxed space-y-2">
+            <p><strong class="text-gray-800">A note about sexual function.</strong> There is approximately a <strong>10% chance of experiencing weaker erections</strong> after surgery. Additionally, there is <strong>at least a 50% chance of losing the ability to ejaculate</strong> &mdash; semen passes backward into the bladder instead of forward (retrograde ejaculation), which is common after any prostate surgery that opens the bladder neck. This means the procedure may not be compatible with future fertility. These risks are discussed in detail during the consultation.</p>
           </div>
         </div>
       </div>
@@ -315,7 +327,7 @@
           </div>
           <div class="pb-6 md:pb-8">
             <h3 class="font-bold text-gray-800 mb-1" style="font-family: system-ui, -apple-system, sans-serif;">First Week</h3>
-            <p class="text-sm text-gray-700 leading-relaxed">The catheter is removed within a few days to one week, depending on prostate size. Some blood in the urine is normal and settles over the first week or two. Most men are driving within a week and returning to light daily activity.</p>
+            <p class="text-sm text-gray-700 leading-relaxed">The catheter is removed within a few days to one week, depending on prostate size. Blood in the urine and a burning sensation when urinating are normal during the early recovery period. Most men are driving within a week and returning to light daily activity.</p>
           </div>
         </div>
         <!-- Recovery -->
@@ -324,21 +336,34 @@
             <div class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold shrink-0">4</div>
           </div>
           <div class="pb-2">
-            <h3 class="font-bold text-gray-800 mb-1" style="font-family: system-ui, -apple-system, sans-serif;">Weeks 2&ndash;8</h3>
-            <p class="text-sm text-gray-700 leading-relaxed">Urinary urgency and frequency are common as the bladder adjusts to the absence of obstruction. This almost always settles within a few weeks to a couple of months. Most men notice a significant improvement in their stream well before that. A follow-up visit confirms recovery is on track.</p>
+            <h3 class="font-bold text-gray-800 mb-1" style="font-family: system-ui, -apple-system, sans-serif;">Full Recovery &mdash; Weeks to Months</h3>
+            <p class="text-sm text-gray-700 leading-relaxed">Full recovery typically takes several weeks to a few months. Blood in the urine and burning with urination gradually resolve over this period. Urinary urgency and frequency are common as the bladder adjusts to the absence of obstruction. Most men notice a significant improvement in their stream well before full healing is complete. A follow-up visit confirms recovery is on track.</p>
           </div>
         </div>
       </div>
 
-      <!-- Anticoagulation note -->
-      <div class="mt-4 md:mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4 md:p-5">
-        <div class="flex items-start gap-3">
-          <svg class="w-5 h-5 text-gray-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 8v4m0 4h.01"/>
-          </svg>
-          <div class="text-sm text-gray-700 leading-relaxed">
-            <p><strong class="text-gray-800">If you take blood thinners:</strong> Coming off anticoagulation before surgery is preferred when possible, as it leads to a smoother recovery. When stopping is not safe, bridging strategies and other options are discussed on a case-by-case basis.</p>
+      <!-- Additional considerations -->
+      <div class="mt-4 md:mt-6 space-y-3 md:space-y-4">
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 md:p-5">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gray-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 8v4m0 4h.01"/>
+            </svg>
+            <div class="text-sm text-gray-700 leading-relaxed">
+              <p><strong class="text-gray-800">If you take blood thinners:</strong> Patients on anticoagulation may experience more bleeding during recovery and the healing process may take longer. Coming off blood thinners before surgery is preferred when possible. When stopping is not safe, bridging strategies and other options are discussed on a case-by-case basis.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 md:p-5">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-gray-500 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M12 8v4m0 4h.01"/>
+            </svg>
+            <div class="text-sm text-gray-700 leading-relaxed">
+              <p><strong class="text-gray-800">Very large prostates:</strong> For men with a very large prostate, there is a possibility that a second GreenLEP procedure may be needed in the future if tissue regrows or if the initial procedure does not remove the full volume of obstruction.</p>
+            </div>
           </div>
         </div>
       </div>

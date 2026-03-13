@@ -40,27 +40,15 @@
     <div class="max-w-4xl mx-auto px-3 md:px-4 py-2 md:py-3 flex flex-wrap items-center justify-between gap-1 md:gap-2">
       <a href="#top" class="text-brand-700 font-bold text-base md:text-lg tracking-tight">GreenLEP GTA</a>
       <div class="flex flex-wrap gap-x-3 md:gap-x-5 gap-y-0.5 text-xs md:text-sm text-gray-500">
-        <!-- Section anchors (current single-page mode) -->
-        <a href="#about" class="nav-link hover:text-brand-700 transition-colors section-nav">About</a>
-        <a href="#candidates" class="nav-link hover:text-brand-700 transition-colors section-nav">Candidates</a>
-        <a href="#advantages" class="nav-link hover:text-brand-700 transition-colors section-nav">Advantages</a>
-        <a href="#expect" class="nav-link hover:text-brand-700 transition-colors section-nav">What to Expect</a>
-        <a href="#evidence" class="nav-link hover:text-brand-700 transition-colors section-nav">Evidence</a>
-        <a href="#refer" class="nav-link hover:text-brand-700 transition-colors section-nav">Refer</a>
-        <!-- Multi-page nav (dev preview of final site) -->
-        <a href="index.html" class="nav-link text-brand-700 font-medium hidden page-nav">Home</a>
-        <a href="about.html" class="nav-link hover:text-brand-700 transition-colors hidden page-nav">About</a>
-        <a href="urology.html" class="nav-link hover:text-brand-700 transition-colors hidden page-nav">Practice</a>
-        <a href="referrals.html" class="nav-link hover:text-brand-700 transition-colors hidden page-nav">Refer</a>
+        <a href="#about" class="nav-link hover:text-brand-700 transition-colors">About</a>
+        <a href="#candidates" class="nav-link hover:text-brand-700 transition-colors">Candidates</a>
+        <a href="#advantages" class="nav-link hover:text-brand-700 transition-colors">Advantages</a>
+        <a href="#expect" class="nav-link hover:text-brand-700 transition-colors">What to Expect</a>
+        <a href="#evidence" class="nav-link hover:text-brand-700 transition-colors">Evidence</a>
+        <a href="#refer" class="nav-link hover:text-brand-700 transition-colors">Refer</a>
       </div>
     </div>
   </nav>
-  <script>
-    if (new URLSearchParams(window.location.search).has('dev')) {
-      document.querySelectorAll('.section-nav').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.page-nav').forEach(el => el.classList.remove('hidden'));
-    }
-  </script>
 
   <!-- Hero -->
   <header id="top" class="bg-brand-800 text-white relative overflow-hidden">
@@ -610,6 +598,18 @@
           </div>
         </div>
       </div>
+      <!-- Doorway to full practice -->
+      <div class="mt-8 md:mt-10">
+        <a href="about.html" class="block border border-brand-200 bg-brand-50 rounded-lg p-4 md:p-5 hover:border-brand-400 hover:shadow-sm transition-all group">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <p class="text-sm md:text-base text-gray-700 leading-relaxed">Dr. Yan&rsquo;s practice also includes <strong class="text-gray-800">kidney surgery</strong>, <strong class="text-gray-800">prostate cancer</strong>, and <strong class="text-gray-800">bladder tumour management</strong>.</p>
+              <p class="text-brand-700 font-medium text-sm mt-1">View full practice</p>
+            </div>
+            <svg class="w-5 h-5 text-brand-600 shrink-0 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.3 4.3a1 1 0 011.4 0l5 5a1 1 0 010 1.4l-5 5a1 1 0 01-1.4-1.4L11.6 10 7.3 5.7a1 1 0 010-1.4z" clip-rule="evenodd"/></svg>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -620,6 +620,34 @@
       <p class="text-brand-400">Fax: 416-767-2403&ensp;|&ensp;<a href="mailto:cathy.zagouris@unityhealth.to" class="underline underline-offset-2 hover:text-white">cathy.zagouris@unityhealth.to</a></p>
     </div>
   </footer>
+
+  <!-- Scroll-spy: highlight active nav link -->
+  <script>
+    (function() {
+      var links = document.querySelectorAll('nav a.nav-link[href^="#"]');
+      var sections = [];
+      links.forEach(function(a) {
+        var el = document.querySelector(a.getAttribute('href'));
+        if (el) sections.push({ el: el, link: a });
+      });
+      if (!sections.length) return;
+      function update() {
+        var scrollY = window.scrollY + 120;
+        var active = null;
+        sections.forEach(function(s) {
+          if (s.el.offsetTop <= scrollY) active = s;
+        });
+        links.forEach(function(a) {
+          a.classList.remove('text-brand-700', 'font-medium');
+        });
+        if (active) {
+          active.link.classList.add('text-brand-700', 'font-medium');
+        }
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+  </script>
 
 </body>
 </html>

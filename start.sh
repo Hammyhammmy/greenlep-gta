@@ -1,22 +1,20 @@
-
-# MacBook-Air-2:greenlep_gta work$ bash start.sh 
-# Port 8080 is busy, trying 8081...
-
-#   GreenLEP GTA — serving at:
-#   http://localhost:8081
-
-#   Press Ctrl+C to stop.
-
-# Serving HTTP on 127.0.0.1 port 8081 (http://127.0.0.1:8081/) ...
-
-
-
-
 #!/usr/bin/env bash
 # Serve the GreenLEP GTA static site locally
 set -euo pipefail
 
-PORT="${1:-8080}"
+PORT=8080
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --port|-p) PORT="$2"; shift 2 ;;
+    -h|--help)
+      echo "Usage: bash start.sh [--port PORT]"
+      echo "  --port, -p  Port to serve on (default: 8080)"
+      exit 0 ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
+  esac
+done
 
 # Find a free port if requested one is busy
 while lsof -iTCP:"$PORT" -sTCP:LISTEN &>/dev/null; do
@@ -30,5 +28,8 @@ echo "  http://localhost:$PORT"
 echo ""
 echo "  Press Ctrl+C to stop."
 echo ""
+
+# Auto-open in browser
+open "http://localhost:$PORT" 2>/dev/null || true
 
 python3 -m http.server "$PORT" --bind 127.0.0.1
